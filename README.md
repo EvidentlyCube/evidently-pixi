@@ -6,7 +6,8 @@ A collection of modules and classes that make it easier to create games in [Pixi
 
  * **Bootstrap** - Contains the `Game` class that bootstraps the whole application using other modules.
  * **Various** - Other classes that do not make sense to create a separate module for them:
-   * **TextureStore** -
+   * **TextureStore** - Store for all the textures for easy access to a specific full texture, sprite in a sheet, tile in a tileset or an arbitrary fragment of a texture. Useful for serializing and unserializing textures later.
+   * **AssetLoader** - Promise-powered upgrade to Pixi's resource loader that allows easily loading, importing and handling all kinds of assets.
 
 ## Getting Started
 
