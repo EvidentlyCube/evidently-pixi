@@ -1,0 +1,54 @@
+{
+  "name": "evidently-pixi",
+  "version": "0.0.1",
+  "description": "TypeScript powered set of modules to make it easier to make games in Pixi.js.",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "node_modules/.bin/mocha -r ts-node/register -r test/hookJsdom.js test/**/*.test.*",
+    "clean": "rm -rf dist",
+    "build": "tsc",
+    "docs": "typedoc --options typedoc.ts && node docs-clean.js",
+    "lint": "eslint test/**/*.ts src/**/*.ts",
+    "lint-fix": "eslint --fix test/**/*.ts src/**/*.ts",
+    "prepare-publish": "npm run clean && npm run lint && npm run build && npm run docs"
+  },
+  "keywords": [
+    "tweening",
+    "typescript",
+    "gamedev",
+    "clean"
+  ],
+  "author": "Maurycy Zarzycki (Evidently Cube)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EvidentlyCube/evidently-pixi.git"
+  },
+  "devDependencies": {
+    "@types/big-integer": "0.0.31",
+    "@types/chai": "^4.2.5",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^11.15.2",
+    "@types/pixi.js": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "canvas": "^2.6.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.6.0",
+    "floss": "^3.0.0",
+    "jsdom": "^15.2.1",
+    "mocha": "^6.2.2",
+    "replace-in-file": "^3.4.4",
+    "ts-node": "^8.5.2",
+    "typedoc": "^0.15.2",
+    "typedoc-twilio-theme": "^1.0.0",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "pixi.js": "^5.2.0"
+  }
+}
