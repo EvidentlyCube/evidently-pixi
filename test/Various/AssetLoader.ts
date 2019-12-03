@@ -28,7 +28,7 @@ class TestLoader {
 	}
 }
 
-describe('Various.AssetLoader', () => {
+describe('AssetLoader', () => {
 	afterEach(() => {
 		PIXI.utils.destroyTextureCache();
 	});

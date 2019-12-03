@@ -5,6 +5,7 @@ module.exports = {
 	rules: {
 		"@typescript-eslint/indent": ["error", 'tab'],
 		"@typescript-eslint/no-explicit-any": [0],
-		"@typescript-eslin/no-non-null-assertion": [0]
+		"@typescript-eslint/triple-slash-reference": [0],
+		"@typescript-eslint/no-non-null-assertion": [0]
 	}
 };
