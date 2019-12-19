@@ -1,0 +1,337 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Evidently Pixi library</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Evidently Pixi library</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> Evidently Pixi library</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#evidently-pixi" id="evidently-pixi" style="color: inherit; text-decoration: none;">
+					<h1>Evidently Pixi</h1>
+				</a>
+				<p><a href="https://travis-ci.com/EvidentlyCube/evidently-pixi"><img src="https://travis-ci.com/EvidentlyCube/evidently-pixi.svg?branch=master" alt="Build Status"></a></p>
+				<p>A collection of modules and classes that make it easier to create games in <a href="https://www.pixijs.com/">Pixi.js</a>. If you&#39;re interested in using this as a full bootstrap for your game (an example game built using this library is <a href="https://github.com/EvidentlyCube/chronic-temporal">here</a>) scroll down to &quot;How to use&quot; section. If you&#39;re more interested in using some of the classes present here, below is a list of all the modules available:</p>
+				<ul>
+					<li><strong>Bootstrap</strong> - Contains the <code>Game</code> class that bootstraps the whole application using other modules.<ul>
+							<li><strong>Game</strong> - Initializes everything, helps load assets, gives access to keyboard/mouse input, exposes scene manager, texture store and others.</li>
+						</ul>
+					</li>
+					<li><strong>Stages</strong> - A stage (do not confuse with Pixi&#39;s stage property) is an object which holds all of the display tree of your game and allows you to post-process it in some way.<ul>
+							<li><strong>ChangeViewportStage</strong> - This is a stage which just changes the viewport of pixi to match the containing canvas&#39; dimensions. In other words the canvas dimensions directly correlate with how much space is available.</li>
+							<li><strong>ScalingStage</strong> - This is a stage that forces the game to always be in a specific resolution, which is stored in a render target, which then can be scaled up or down. Useful for 8-bit games with pixel-perfect rendering. This also gracefully handles Mouse input.</li>
+						</ul>
+					</li>
+					<li><strong>Managers</strong> - Classes for managing certain facets of a game&#39;s functionality:<ul>
+							<li><strong>SceneManager</strong> - Controls what scene is currently playing and allows switching to a different one.</li>
+						</ul>
+					</li>
+					<li><strong>Various</strong> - Other classes that do not make sense to create a separate module for them:<ul>
+							<li><strong>TextureStore</strong> - Store for all the textures for easy access to a specific full texture, sprite in a sheet, tile in a tileset or an arbitrary fragment of a texture. Useful for serializing and unserializing textures later.</li>
+							<li><strong>AssetLoader</strong> - Promise-powered upgrade to Pixi&#39;s resource loader that allows easily loading, importing and handling all kinds of assets.</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
+					<h3>Installing</h3>
+				</a>
+				<p>Add it to your project via:</p>
+				<pre><code>npm i <span class="hljs-comment">--save evidently-pixi</span></code></pre>
+				<a href="#how-to-use" id="how-to-use" style="color: inherit; text-decoration: none;">
+					<h3>How to use</h3>
+				</a>
+				<p>The core of this package is the <code>Game</code> class which aims to integrate all of the pieces together to create an opinionated bootstrap for game development in PIXI. The development using this library looks as follows:</p>
+				<ol>
+					<li>Create an instance of <code>Game</code> and configure it for your needs.</li>
+					<li>Use <code>Scenes</code> to divide your game into thematic sections - a scene can be title screen, actual gameplay, intro, game over screen etc. You&#39;re completely free to use as many or as few scenes, or to implement your own solution and use only a single scene to run it.</li>
+					<li>Global access to <code>Game</code> is discouraged but nothing stops you from exporting a constant which holds an instance of it, especially if you want easy access to input or texture store.</li>
+				</ol>
+				<a href="#example-game-initialization" id="example-game-initialization" style="color: inherit; text-decoration: none;">
+					<h3>Example Game initialization</h3>
+				</a>
+				<pre><code><span class="hljs-keyword">const</span> game = <span class="hljs-keyword">new</span> Game({
+    <span class="hljs-comment">// `document` and `window` are required to be passed to the configuration</span>
+    <span class="hljs-built_in">document</span>,
+    <span class="hljs-built_in">window</span>,
+
+    <span class="hljs-comment">// ID of the element where the PIXI's canvas should be added</span>
+     <span class="hljs-attr">gameContainerId</span>: <span class="hljs-string">'game'</span>,
+
+    <span class="hljs-comment">// optional PIXI configuration, at the very least you want to provide width and height</span>
+    <span class="hljs-attr">pixiConfig</span>: {
+        <span class="hljs-attr">width</span>: <span class="hljs-number">640</span>,
+         <span class="hljs-attr">height</span>: <span class="hljs-number">360</span>,
+        <span class="hljs-attr">backgroundColor</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-attr">antialias</span>: <span class="hljs-literal">false</span>,
+    },
+
+    <span class="hljs-comment">// Creates and configures a stage which scales the game pixel-perfect, snapping to full integers of scale,</span>
+    <span class="hljs-comment">// ie. x1, x2, x3, for a crisp pixel look. It also handles all of the magic required for Pixi's</span>
+    <span class="hljs-comment">// interactions to work and for `MouseInput` library to report proper position</span>
+    <span class="hljs-attr">stageFactory</span>: <span class="hljs-function">(<span class="hljs-params">game: Game</span>) =&gt;</span> <span class="hljs-keyword">new</span> ScalingStage(
+        game,
+        <span class="hljs-number">640</span>,
+        <span class="hljs-number">360</span>,
+        PIXI.SCALE_MODES.NEAREST,
+        Config.containerUpscaleMode,
+    ),
+
+    <span class="hljs-comment">// Queue some assets to be loaded</span>
+    <span class="hljs-attr">onQueueAssets</span>: (game: Game): <span class="hljs-keyword">void</span> {
+        game.assetLoader.queuePixiAutoFont(<span class="hljs-string">'topaz_0.png'</span>, FontTopaz8Image);
+        game.assetLoader.queuePixiAutoFont(<span class="hljs-string">'font-topaz'</span>, FontTopaz8);
+        game.assetLoader.queueTexture(GfxConstants.InitialTileset, InitialTileset);
+        game.assetLoader.queueTileset(GfxConstants.InitialTileset, {
+            <span class="hljs-attr">tileWidth</span>: <span class="hljs-number">16</span>,
+            <span class="hljs-attr">tileHeight</span>: <span class="hljs-number">16</span>,
+            <span class="hljs-attr">offsetX</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-attr">offsetY</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-attr">spacingX</span>: <span class="hljs-number">0</span>,
+            <span class="hljs-attr">spacingY</span>: <span class="hljs-number">0</span>,
+        })
+    },
+
+    <span class="hljs-comment">// Callback to create the starting scene</span>
+    <span class="hljs-attr">initialSceneFactory</span>: <span class="hljs-function">(<span class="hljs-params">game</span>) =&gt;</span> <span class="hljs-keyword">new</span> IntroScene(game),
+
+    <span class="hljs-comment">// Called once everything has finished initializing</span>
+    <span class="hljs-attr">onStartGame</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Game started"</span>);
+    },
+);
+
+<span class="hljs-comment">// Actually starts the initialization of the game</span>
+game.start();</code></pre>
+				<a href="#low-version-warning" id="low-version-warning" style="color: inherit; text-decoration: none;">
+					<h3>Low version warning</h3>
+				</a>
+				<p>The library is currently in version &lt;1.0.0. The reason is that I am still likely to be changing things around, mostly just names of classes and configuration variables.</p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>This project is licensed under the MIT License - see the <a href="LICENSE.md">LICENSE.md</a> file for details</p>
+				<a href="#links" id="links" style="color: inherit; text-decoration: none;">
+					<h2>Links</h2>
+				</a>
+				<ul>
+					<li><a href="https://www.npmjs.com/package/evidently-pixi">NPM</a></li>
+					<li><a href="https://travis-ci.com/EvidentlyCube/evidently-pixi">Travis-ci</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/pixi.html">PIXI</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/containerupscalemode.html" class="tsd-kind-icon">Container<wbr>Upscale<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/gamestagelayer.html" class="tsd-kind-icon">Game<wbr>Stage<wbr>Layer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/assetloader.html" class="tsd-kind-icon">Asset<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/changeviewportstage.html" class="tsd-kind-icon">Change<wbr>Viewport<wbr>Stage</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/game.html" class="tsd-kind-icon">Game</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/postprocesseffects.html" class="tsd-kind-icon">Post<wbr>Process<wbr>Effects</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scalingstage.html" class="tsd-kind-icon">Scaling<wbr>Stage</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scenemanager.html" class="tsd-kind-icon">Scene<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/texturestore.html" class="tsd-kind-icon">Texture<wbr>Store</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/assetloaderconfiguration.html" class="tsd-kind-icon">Asset<wbr>Loader<wbr>Configuration</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/constructor.html" class="tsd-kind-icon">Constructor</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gameconfiguration.html" class="tsd-kind-icon">Game<wbr>Configuration</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/gamestage.html" class="tsd-kind-icon">Game<wbr>Stage</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/hashmap.html" class="tsd-kind-icon">Hashmap</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/objectkeymap.html" class="tsd-kind-icon">Object<wbr>Keymap</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/pendingpixiautofont.html" class="tsd-kind-icon">Pending<wbr>Pixi<wbr>Auto<wbr>Font</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/pendingsheet.html" class="tsd-kind-icon">Pending<wbr>Sheet</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/pendingtexture.html" class="tsd-kind-icon">Pending<wbr>Texture</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/pendingtileset.html" class="tsd-kind-icon">Pending<wbr>Tileset</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postprocesseffect.html" class="tsd-kind-icon">Post<wbr>Process<wbr>Effect</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scene.html" class="tsd-kind-icon">Scene</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/tilesettextureconfig.html" class="tsd-kind-icon">Tileset<wbr>Texture<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#asserttilesetconfigfield" class="tsd-kind-icon">assert<wbr>Tileset<wbr>Config<wbr>Field</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#escaperegexp" class="tsd-kind-icon">escape<wbr>Reg<wbr>Exp</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
