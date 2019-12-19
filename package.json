@@ -1,6 +1,6 @@
 {
   "name": "evidently-pixi",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "TypeScript powered set of modules to make it easier to make games in Pixi.js.",
   "main": "dist/index.js",
   "files": [

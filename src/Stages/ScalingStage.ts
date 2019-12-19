@@ -5,7 +5,7 @@ import {Game} from "../Bootstrap/Game";
 /**
  * Scale mode as used by [[ScalingStage]]
  */
-export enum ContainerUpscaleMode {
+export enum ScalingStageUpscaleMode {
 	/**
 	 * Stage is not scaled so the game always displays in the native size.
 	 */
@@ -23,11 +23,11 @@ export enum ContainerUpscaleMode {
 
 /**
  * This stage will render the game to a render texture in its original dimensions as provided in the constructor,
- * then depending on selected [[ContainerUpscaleMode]] will scale the contents proportionally. The stage will then
+ * then depending on selected [[ScalingStageUpscaleMode]] will scale the contents proportionally. The stage will then
  * be centered in the available spcae that is left.
  */
 export class ScalingStage implements GameStage {
-	private _upscaleMode: ContainerUpscaleMode;
+	private _upscaleMode: ScalingStageUpscaleMode;
 	private _lastWindowWidth: number;
 	private _lastWindowHeight: number;
 
@@ -40,18 +40,18 @@ export class ScalingStage implements GameStage {
 
 	private readonly _renderTexture: PIXI.RenderTexture;
 
-	public get upscaleMode(): ContainerUpscaleMode {
+	public get upscaleMode(): ScalingStageUpscaleMode {
 		return this._upscaleMode;
 	}
 
-	public set upscaleMode(mode: ContainerUpscaleMode) {
+	public set upscaleMode(mode: ScalingStageUpscaleMode) {
 		if (this._upscaleMode !== mode) {
 			this._upscaleMode = mode;
 			this.setWindowDimensions(this._lastWindowWidth, this._lastWindowHeight);
 		}
 	}
 
-	constructor(game: Game, baseWidth: number, baseHeight: number, scaleMode: number = PIXI.SCALE_MODES.NEAREST, upscaleMode: ContainerUpscaleMode = ContainerUpscaleMode.SnapScale) {
+	constructor(game: Game, baseWidth: number, baseHeight: number, scaleMode: number = PIXI.SCALE_MODES.NEAREST, upscaleMode: ScalingStageUpscaleMode = ScalingStageUpscaleMode.SnapScale) {
 		this._game = game;
 
 		this._mask = new PIXI.Graphics();
@@ -143,14 +143,14 @@ export class ScalingStage implements GameStage {
 		this._game.mouse.scaleProperties.scaleY = scaleY;
 	}
 
-	private getDimensionsForScaleMode(windowWidth: number, windowHeight: number, upscaleMode: ContainerUpscaleMode): [number, number] {
+	private getDimensionsForScaleMode(windowWidth: number, windowHeight: number, upscaleMode: ScalingStageUpscaleMode): [number, number] {
 		const displayRatio = this._baseWidth / this._baseHeight;
 
 		switch (upscaleMode) {
-			case ContainerUpscaleMode.NoScale:
+			case ScalingStageUpscaleMode.NoScale:
 				return [windowWidth, windowHeight];
 
-			case ContainerUpscaleMode.SnapScale:
+			case ScalingStageUpscaleMode.SnapScale:
 				const snappedMaxWidth = Math.floor(windowWidth / this._baseWidth) * this._baseWidth;
 				const snappedMaxHeight = Math.floor(windowHeight / this._baseHeight) * this._baseHeight;
 
@@ -166,7 +166,7 @@ export class ScalingStage implements GameStage {
 					];
 				}
 
-			case ContainerUpscaleMode.FullScale:
+			case ScalingStageUpscaleMode.FullScale:
 				if (windowWidth / windowHeight < displayRatio) {
 					return [
 						windowWidth,

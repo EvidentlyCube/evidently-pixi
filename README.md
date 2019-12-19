@@ -63,7 +63,7 @@ const game = new Game({
     	640,
     	360,
     	PIXI.SCALE_MODES.NEAREST,
-    	Config.containerUpscaleMode,
+    	Config.ScalingStageUpscaleMode,
     ),
 
     // Queue some assets to be loaded
