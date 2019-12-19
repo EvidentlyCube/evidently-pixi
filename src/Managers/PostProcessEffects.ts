@@ -5,6 +5,9 @@ export interface PostProcessEffect {
 	update(passedTime: number): void;
 }
 
+/**
+ * Manager for post process effects.
+ */
 export class PostProcessEffects {
 	private readonly _effects: PostProcessEffect[];
 

@@ -17,7 +17,10 @@
     "prepare-publish": "npm run clean && npm run lint && npm run build && npm run docs"
   },
   "keywords": [
-    "tweening",
+    "bootstrap",
+    "assets",
+    "textures",
+    "helpers",
     "typescript",
     "gamedev",
     "clean"
@@ -50,6 +53,6 @@
   },
   "dependencies": {
     "pixi.js": "^5.2.0",
-    "evidently-input": "~1.0.1"
+    "evidently-input": "^1.1.2"
   }
 }
