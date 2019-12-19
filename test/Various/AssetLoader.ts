@@ -11,7 +11,7 @@ function endsWith(haystack: string, needle: string): boolean {
 }
 
 class TestLoader {
-	public resources: Hashmap<PIXI.LoaderResource> = {};
+	public $resources: Hashmap<PIXI.LoaderResource> = {};
 
 	public add(name: string, url: string): void {
 		const resource = new (PIXI.LoaderResource as any)(name, url);
@@ -20,11 +20,11 @@ class TestLoader {
 			resource.texture = new PIXI.Texture(new PIXI.BaseTexture(), new PIXI.Rectangle(0, 0, 1024, 1024));
 		}
 
-		this.resources[name] = resource;
+		this.$resources[name] = resource;
 	}
 
 	public load(callback: (...rest: any[]) => void): void {
-		callback(this, this.resources);
+		callback(this, this.$resources);
 	}
 }
 
@@ -54,7 +54,7 @@ describe('AssetLoader', () => {
 		const loader = new TestLoader();
 		await assetLoader.load(loader as any);
 
-		assert.equal(assetLoader.textureStore.getTexture('testTexture'), loader.resources['testTexture'].texture);
+		assert.equal(assetLoader.textureStore.getTexture('testTexture'), loader.$resources['testTexture'].texture);
 	});
 
 	it("Should load and register spritesheet", async () => {
@@ -122,5 +122,17 @@ describe('AssetLoader', () => {
 		assert.deepEqual(assetLoader.textureStore.getTile('testTexture', 1, 0).frame, new PIXI.Rectangle(13, 4, 10, 11));
 		assert.deepEqual(assetLoader.textureStore.getTile('testTexture', 0, 1).frame, new PIXI.Rectangle(1, 18, 10, 11));
 		assert.deepEqual(assetLoader.textureStore.getTile('testTexture', 1, 1).frame, new PIXI.Rectangle(13, 18, 10, 11));
+	});
+
+	it("Should load a pixi auto font", async () => {
+		const assetLoader = new AssetLoader();
+		assetLoader.queuePixiAutoFont("testTexture", "font.fnt");
+
+		const loader = new TestLoader();
+		await assetLoader.load(loader as any);
+
+		assert.isNotNull(loader.$resources.testTexture);
+		assert.equal(loader.$resources.testTexture.url, 'font.fnt');
+		assert.throw(() => assetLoader.textureStore.getTexture('testTexture'));
 	});
 });

@@ -20,6 +20,11 @@ interface PendingTileset {
 	config: TilesetTextureConfig;
 }
 
+interface PendingPixiAutoFont {
+	name: string;
+	fontXmlUrl: string;
+}
+
 interface AssetLoaderConfiguration {
 	textureStore?: TextureStore;
 }
@@ -34,6 +39,7 @@ export class AssetLoader {
 	private readonly _pendingTextures: PendingTexture[];
 	private readonly _pendingSheets: PendingSheet[];
 	private readonly _pendingTilesets: PendingTileset[];
+	private readonly _pendingPixiAutoFonts: PendingPixiAutoFont[];
 
 	public textureStore: TextureStore;
 
@@ -42,6 +48,7 @@ export class AssetLoader {
 		this._pendingTextures = [];
 		this._pendingSheets = [];
 		this._pendingTilesets = [];
+		this._pendingPixiAutoFonts = [];
 		this.textureStore = config.textureStore || new TextureStore();
 	}
 
@@ -78,7 +85,7 @@ export class AssetLoader {
 	}
 
 	/**
-	 * Queues a tileset to be registed in [[TextureStpre]].
+	 * Queues a tileset to be registed in [[TextureStore]].
 	 *
 	 * @param {string} name Name of the texture to use as a base for the tileset - it may be a separately loaded texture
 	 *        or one of spritesheet's frames.
@@ -92,6 +99,12 @@ export class AssetLoader {
 			name: name,
 			config: {...config},
 		});
+	}
+
+	public queuePixiAutoFont(name: string, fontXmlUrl: string): void {
+		this.assertNotStarted();
+
+		this._pendingPixiAutoFonts.push({name, fontXmlUrl});
 	}
 
 	/**
@@ -112,6 +125,10 @@ export class AssetLoader {
 
 		this._pendingSheets.forEach((sheet) => {
 			loader.add(sheet.name, sheet.imageUrl);
+		});
+
+		this._pendingPixiAutoFonts.forEach((font) => {
+			loader.add(font.name, font.fontXmlUrl);
 		});
 
 		const promise = new Promise((resolve) => {
