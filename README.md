@@ -17,6 +17,9 @@ A collection of modules and classes that make it easier to create games in [Pixi
 
 ## Documentation
 
+The full documentation can be found [here](https://evidentlycube.github.io/evidently-pixi/). 
+
+
 ### Installing
 
 Add it to your project via:
